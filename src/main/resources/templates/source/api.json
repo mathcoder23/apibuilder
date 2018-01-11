@@ -1,0 +1,1523 @@
+{
+  "info": {
+    "name": "华奇科技 外呼接口文档",
+    "_postman_id": "14be7f75-ee0c-3950-e961-0fe3d9a34481",
+    "description": "### 接口说明  \n### 登录\n1. 调用 yc-app接口/用户/登录  返回token\n2. 调用需要登录的接口在Http头中带上Authorization:{{token}} 键值对\n\n### 自动获取token  \n```\nvar url = pm.environment.get(\"domain\")+\"/yc/login.json?username=\"+pm.environment.get(\"username\")+\"&password=\"+pm.environment.get(\"password\")\nconsole.log(url)\npm.sendRequest({\n    url: url,\n    method: 'POST'\n\n}, function (err, response) {\n     pm.environment.unset(\"Token\");\n     let body = JSON.parse(response.stream.toString())\n     if(body.data.token){\n        console.log(\"更新token\",body.data.token)\n        pm.environment.set(\"Token\", body.data.token);//更新token至postman环境变量\n     }else{\n         console.log(\"无法获取Token\")\n        pm.environment.set(\"Token\", \"NA\");//更新token至postman环境变量\n     }\n    \n});\n```\n",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "yc-app接口",
+      "description": "Folder for yc",
+      "item": [
+        {
+          "name": "任务",
+          "description": "",
+          "item": [
+            {
+              "name": "创建或者更新任务",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "id": "8547fa90-0db6-4dd5-8c82-c996e68f987b",
+                    "type": "text/javascript",
+                    "exec": [
+                      ""
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "key": "name",
+                      "value": "阿里任务",
+                      "description": "阿里任务",
+                      "type": "text"
+                    },
+                    {
+                      "key": "user.id",
+                      "value": "",
+                      "description": "坐席id",
+                      "type": "text"
+                    },
+                    {
+                      "key": "status",
+                      "value": "",
+                      "description": "任务状态",
+                      "type": "text",
+                      "disabled": true
+                    },
+                    {
+                      "key": "id",
+                      "value": "20",
+                      "description": "任务id，修改时需要",
+                      "type": "text",
+                      "disabled": true
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{domain}}/yc/api/app/callServiceTask/save",
+                  "host": [
+                    "{{domain}}"
+                  ],
+                  "path": [
+                    "yc",
+                    "api",
+                    "app",
+                    "callServiceTask",
+                    "save"
+                  ]
+                },
+                "description": null
+              },
+              "response": [
+                {
+                  "id": "c6aef8dd-f835-4885-9cda-6373e0f9a8c8",
+                  "name": "阿里任务",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [],
+                    "body": {
+                      "mode": "urlencoded",
+                      "urlencoded": [
+                        {
+                          "key": "name",
+                          "value": "我的任务2",
+                          "description": "阿里任务",
+                          "type": "text"
+                        },
+                        {
+                          "key": "user.id",
+                          "value": "",
+                          "description": "坐席id",
+                          "type": "text"
+                        },
+                        {
+                          "key": "status",
+                          "value": "",
+                          "description": "任务状态",
+                          "type": "text",
+                          "disabled": true
+                        },
+                        {
+                          "key": "id",
+                          "value": "20",
+                          "description": "任务id，修改时需要",
+                          "type": "text",
+                          "disabled": true
+                        }
+                      ]
+                    },
+                    "url": {
+                      "raw": "{{domain}}/yc/api/app/callServiceTask/save",
+                      "host": [
+                        "{{domain}}"
+                      ],
+                      "path": [
+                        "yc",
+                        "api",
+                        "app",
+                        "callServiceTask",
+                        "save"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "",
+                  "header": [],
+                  "cookie": [],
+                  "responseTime": "0",
+                  "body": ""
+                }
+              ]
+            },
+            {
+              "name": "查询当前用户任务列表",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "id": "bf881930-6fa9-43eb-b3c2-cb309f6020a6",
+                    "type": "text/javascript",
+                    "exec": [
+                      ""
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "GET",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "过滤信息"
+                },
+                "url": {
+                  "raw": "{{domain}}/yc/api/app/callServiceTask/list.json?pageSize=200&pageNo=1",
+                  "host": [
+                    "{{domain}}"
+                  ],
+                  "path": [
+                    "yc",
+                    "api",
+                    "app",
+                    "callServiceTask",
+                    "list.json"
+                  ],
+                  "query": [
+                    {
+                      "key": "pageSize",
+                      "value": "200",
+                      "equals": true
+                    },
+                    {
+                      "key": "pageNo",
+                      "value": "1",
+                      "equals": true
+                    }
+                  ]
+                },
+                "description": "```\n\"id\": \"19\",\n\"createBy\": {\n    \"id\": \"1\",\n    \"name\": \"管理员\",\n    \"roleList\": [],\n    \"admin\": false\n},\n\"createDate\": \"2017-12-12 11:34:51\",//任务创建时间\n\"updateDate\": \"2017-12-12 11:34:51\",//任务最新一次更新时间\n\"name\": \"你好\",\n\"phoneCount\": 0,//任务中的联系人个数\n\"callout\": 0,//已呼叫个数\n\"answer\": 0,//呼叫并接听个数\n\"status\": \"0\",//任务状态:0任务空闲，1任务中，2任务暂停，3任务完成\n\"company\": {\n    \"id\": \"1\"\n}\n```"
+              },
+              "response": []
+            },
+            {
+              "name": "通过id查询任务",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "body": {},
+                "url": {
+                  "raw": "{{domain}}/yc/api/app/callServiceTask/findById.json?id=25",
+                  "host": [
+                    "{{domain}}"
+                  ],
+                  "path": [
+                    "yc",
+                    "api",
+                    "app",
+                    "callServiceTask",
+                    "findById.json"
+                  ],
+                  "query": [
+                    {
+                      "key": "id",
+                      "value": "25",
+                      "equals": true
+                    }
+                  ]
+                },
+                "description": null
+              },
+              "response": []
+            },
+            {
+              "name": "删除任务",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {},
+                "url": {
+                  "raw": "{{domain}}/yc/api/app/callServiceTask/delete.json?id=23",
+                  "host": [
+                    "{{domain}}"
+                  ],
+                  "path": [
+                    "yc",
+                    "api",
+                    "app",
+                    "callServiceTask",
+                    "delete.json"
+                  ],
+                  "query": [
+                    {
+                      "key": "id",
+                      "value": "23",
+                      "equals": true
+                    }
+                  ]
+                },
+                "description": null
+              },
+              "response": []
+            }
+          ],
+          "_postman_isSubFolder": true
+        },
+        {
+          "name": "客户",
+          "description": "",
+          "item": [
+            {
+              "name": "客户预约接口",
+              "description": null,
+              "item": [
+                {
+                  "name": "预约列表",
+                  "request": {
+                    "method": "GET",
+                    "header": [],
+                    "body": {},
+                    "url": {
+                      "raw": "{{domain}}{{apiAppPath}}/ycCustomerSubscribe/list.json?contact.id=12",
+                      "host": [
+                        "{{domain}}{{apiAppPath}}"
+                      ],
+                      "path": [
+                        "ycCustomerSubscribe",
+                        "list.json"
+                      ],
+                      "query": [
+                        {
+                          "key": "contact.id",
+                          "value": "12",
+                          "equals": true,
+                          "description": "客户id"
+                        }
+                      ]
+                    },
+                    "description": null
+                  },
+                  "response": []
+                },
+                {
+                  "name": "预约-保存",
+                  "request": {
+                    "method": "POST",
+                    "header": [],
+                    "body": {},
+                    "url": {
+                      "raw": "{{domain}}{{apiAppPath}}/ycCustomerSubscribe/save.json?phone=18908186392&contact.id=1&startTime=2017-11-31 12:12:12&name=冯先生&company.id=47&user.id=44&status=0",
+                      "host": [
+                        "{{domain}}{{apiAppPath}}"
+                      ],
+                      "path": [
+                        "ycCustomerSubscribe",
+                        "save.json"
+                      ],
+                      "query": [
+                        {
+                          "key": "phone",
+                          "value": "18908186392",
+                          "equals": true
+                        },
+                        {
+                          "key": "contact.id",
+                          "value": "1",
+                          "equals": true,
+                          "description": "客户id"
+                        },
+                        {
+                          "key": "startTime",
+                          "value": "2017-11-31 12:12:12",
+                          "equals": true
+                        },
+                        {
+                          "key": "name",
+                          "value": "冯先生",
+                          "equals": true
+                        },
+                        {
+                          "key": "company.id",
+                          "value": "47",
+                          "equals": true
+                        },
+                        {
+                          "key": "user.id",
+                          "value": "44",
+                          "equals": true,
+                          "description": "坐席id"
+                        },
+                        {
+                          "key": "status",
+                          "value": "0",
+                          "equals": true
+                        }
+                      ]
+                    },
+                    "description": null
+                  },
+                  "response": []
+                },
+                {
+                  "name": "预约-单个查询",
+                  "request": {
+                    "method": "GET",
+                    "header": [],
+                    "body": {},
+                    "url": {
+                      "raw": "{{domain}}{{apiAppPath}}/ycCustomerSubscribe/findById.json?id=15",
+                      "host": [
+                        "{{domain}}{{apiAppPath}}"
+                      ],
+                      "path": [
+                        "ycCustomerSubscribe",
+                        "findById.json"
+                      ],
+                      "query": [
+                        {
+                          "key": "id",
+                          "value": "15",
+                          "equals": true
+                        }
+                      ]
+                    },
+                    "description": null
+                  },
+                  "response": []
+                },
+                {
+                  "name": "预约-删除",
+                  "request": {
+                    "method": "GET",
+                    "header": [],
+                    "body": {},
+                    "url": {
+                      "raw": "{{domain}}{{apiAppPath}}/ycCustomerSubscribe/delete.json?id=15",
+                      "host": [
+                        "{{domain}}{{apiAppPath}}"
+                      ],
+                      "path": [
+                        "ycCustomerSubscribe",
+                        "delete.json"
+                      ],
+                      "query": [
+                        {
+                          "key": "id",
+                          "value": "15",
+                          "equals": true
+                        }
+                      ]
+                    },
+                    "description": null
+                  },
+                  "response": []
+                }
+              ],
+              "_postman_isSubFolder": true
+            },
+            {
+              "name": "坐席客户跟进接口",
+              "description": null,
+              "item": [
+                {
+                  "name": "跟进记录-保存",
+                  "request": {
+                    "method": "GET",
+                    "header": [],
+                    "body": {},
+                    "url": {
+                      "raw": "{{domain}}{{apiAppPath}}/ycCustomerFollowRecord/save.json?contact.id=51235&remarks=有意向&callType=1",
+                      "host": [
+                        "{{domain}}{{apiAppPath}}"
+                      ],
+                      "path": [
+                        "ycCustomerFollowRecord",
+                        "save.json"
+                      ],
+                      "query": [
+                        {
+                          "key": "contact.id",
+                          "value": "51235",
+                          "equals": true,
+                          "description": "客户id"
+                        },
+                        {
+                          "key": "remarks",
+                          "value": "有意向",
+                          "equals": true,
+                          "description": "跟进内容"
+                        },
+                        {
+                          "key": "callType",
+                          "value": "1",
+                          "equals": true,
+                          "description": "呼叫类型 0 未知，1 呼出 2呼入"
+                        }
+                      ]
+                    },
+                    "description": null
+                  },
+                  "response": []
+                },
+                {
+                  "name": "跟进记录-列表",
+                  "request": {
+                    "method": "GET",
+                    "header": [],
+                    "body": {},
+                    "url": {
+                      "raw": "{{domain}}{{apiAppPath}}/ycCustomerFollowRecord/list.json?contact.id=51235",
+                      "host": [
+                        "{{domain}}{{apiAppPath}}"
+                      ],
+                      "path": [
+                        "ycCustomerFollowRecord",
+                        "list.json"
+                      ],
+                      "query": [
+                        {
+                          "key": "contact.id",
+                          "value": "51235",
+                          "equals": true,
+                          "description": "客户id"
+                        }
+                      ]
+                    },
+                    "description": null
+                  },
+                  "response": []
+                },
+                {
+                  "name": "跟进记录-单个查询",
+                  "request": {
+                    "method": "GET",
+                    "header": [],
+                    "body": {},
+                    "url": {
+                      "raw": "{{domain}}{{apiAppPath}}/ycCustomerFollowRecord/findById.json?id=1",
+                      "host": [
+                        "{{domain}}{{apiAppPath}}"
+                      ],
+                      "path": [
+                        "ycCustomerFollowRecord",
+                        "findById.json"
+                      ],
+                      "query": [
+                        {
+                          "key": "id",
+                          "value": "1",
+                          "equals": true
+                        }
+                      ]
+                    },
+                    "description": null
+                  },
+                  "response": []
+                },
+                {
+                  "name": "跟进记录-删除",
+                  "request": {
+                    "method": "POST",
+                    "header": [],
+                    "body": {},
+                    "url": {
+                      "raw": "{{domain}}{{apiAppPath}}/ycCustomerFollowRecord/delete.json?id=1",
+                      "host": [
+                        "{{domain}}{{apiAppPath}}"
+                      ],
+                      "path": [
+                        "ycCustomerFollowRecord",
+                        "delete.json"
+                      ],
+                      "query": [
+                        {
+                          "key": "id",
+                          "value": "1",
+                          "equals": true
+                        }
+                      ]
+                    },
+                    "description": null
+                  },
+                  "response": []
+                }
+              ],
+              "_postman_isSubFolder": true
+            },
+            {
+              "name": "客户自定义字段",
+              "description": "",
+              "item": [
+                {
+                  "name": "自定义字段-列表",
+                  "request": {
+                    "method": "GET",
+                    "header": [],
+                    "body": {},
+                    "url": {
+                      "raw": "{{domain}}{{apiAppPath}}/ycFieldDict/list.json",
+                      "host": [
+                        "{{domain}}{{apiAppPath}}"
+                      ],
+                      "path": [
+                        "ycFieldDict",
+                        "list.json"
+                      ]
+                    },
+                    "description": null
+                  },
+                  "response": []
+                }
+              ],
+              "_postman_isSubFolder": true
+            },
+            {
+              "name": "删除客户",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "*/*"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {},
+                "url": {
+                  "raw": "{{domain}}{{apiAppPath}}/contact/delete?id=51232",
+                  "host": [
+                    "{{domain}}{{apiAppPath}}"
+                  ],
+                  "path": [
+                    "contact",
+                    "delete"
+                  ],
+                  "query": [
+                    {
+                      "key": "id",
+                      "value": "51232",
+                      "equals": true
+                    }
+                  ]
+                },
+                "description": null
+              },
+              "response": []
+            },
+            {
+              "name": "通过id查询任务",
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "*/*"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {},
+                "url": {
+                  "raw": "{{domain}}{{apiAppPath}}/contact/findById.json?id=51232",
+                  "host": [
+                    "{{domain}}{{apiAppPath}}"
+                  ],
+                  "path": [
+                    "contact",
+                    "findById.json"
+                  ],
+                  "query": [
+                    {
+                      "key": "id",
+                      "value": "51232",
+                      "equals": true
+                    }
+                  ]
+                },
+                "description": null
+              },
+              "response": []
+            },
+            {
+              "name": "指定任务客户列表",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "body": {},
+                "url": {
+                  "raw": "{{domain}}{{apiAppPath}}/contact/task/list.json?ycCallServiceTask.id=25",
+                  "host": [
+                    "{{domain}}{{apiAppPath}}"
+                  ],
+                  "path": [
+                    "contact",
+                    "task",
+                    "list.json"
+                  ],
+                  "query": [
+                    {
+                      "key": "ycCallServiceTask.id",
+                      "value": "25",
+                      "equals": true,
+                      "description": "任务id"
+                    }
+                  ]
+                },
+                "description": null
+              },
+              "response": []
+            },
+            {
+              "name": "查询私有客户列表",
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "*/*"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "过滤信息"
+                },
+                "url": {
+                  "raw": "{{domain}}{{apiAppPath}}/contact/privateList/list.json?dimmest=16",
+                  "host": [
+                    "{{domain}}{{apiAppPath}}"
+                  ],
+                  "path": [
+                    "contact",
+                    "privateList",
+                    "list.json"
+                  ],
+                  "query": [
+                    {
+                      "key": "dimmest",
+                      "value": "16",
+                      "equals": true
+                    }
+                  ]
+                },
+                "description": "```\n {\n    \"id\": \"51234\",\n    \"createBy\": {\n        \"id\": \"1\",\n        \"roleList\": [],\n        \"admin\": false\n    },\n    \"createDate\": \"2017-12-12 15:02:58\",\n    \"updateDate\": \"2017-12-12 15:06:52\",\n    \"name\": \"我的公有3\",\n    \"phone\": \"18908787779\",\n    \"answer\": 0,//接通次数\n    \"callout\": 0,//呼叫次数\n    \"status\": 0,//0 未拨号 1 已拨号\n    \"company\": {\n        \"id\": \"1\",\n        \"name\": \"华奇科技总公司\",\n        \"sort\": 30,\n        \"parentId\": \"0\"\n    },\n     \"area\": { //手机号对应的区域信息\n        \"id\": \"351453\",\n        \"mobile\": \"1890878\", //手机号前缀\n        \"province\": \"云南\", //省份\n        \"city\": \"楚雄\",//城市 如果与省份相同说明是直辖市在显示的时候就不用显示city了\n        \"corporation\": \"中国电信\",\n        \"areaCode\": \"0878\",\n        \"postCode\": \"675000\"\n    },\n    \"process\": 0//资料完整度,0-100\n}\n```"
+              },
+              "response": []
+            },
+            {
+              "name": "查询公有客户列表",
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "*/*"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "过滤信息"
+                },
+                "url": {
+                  "raw": "{{domain}}{{apiAppPath}}/contact/list.json",
+                  "host": [
+                    "{{domain}}{{apiAppPath}}"
+                  ],
+                  "path": [
+                    "contact",
+                    "list.json"
+                  ]
+                },
+                "description": "```\n {\n    \"id\": \"51234\",\n    \"createBy\": {\n        \"id\": \"1\",\n        \"roleList\": [],\n        \"admin\": false\n    },\n    \"createDate\": \"2017-12-12 15:02:58\",\n    \"updateDate\": \"2017-12-12 15:06:52\",\n    \"name\": \"我的公有3\",\n    \"phone\": \"18908787779\",\n    \"answer\": 0,//接通次数\n    \"callout\": 0,//呼叫次数\n    \"status\": 0,//0 未拨号 1 已拨号\n    \"company\": {\n        \"id\": \"1\",\n        \"name\": \"华奇科技总公司\",\n        \"sort\": 30,\n        \"parentId\": \"0\"\n    },\n     \"area\": { //手机号对应的区域信息\n        \"id\": \"351453\",\n        \"mobile\": \"1890878\", //手机号前缀\n        \"province\": \"云南\", //省份\n        \"city\": \"楚雄\",//城市 如果与省份相同说明是直辖市在显示的时候就不用显示city了\n        \"corporation\": \"中国电信\",\n        \"areaCode\": \"0878\",\n        \"postCode\": \"675000\"\n    },\n    \"process\": 0//资料完整度,0-100\n}\n```"
+              },
+              "response": []
+            },
+            {
+              "name": "创建或者更新私有客户",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "*/*"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  }
+                ],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "key": "name",
+                      "value": "我的私有客户",
+                      "type": "text"
+                    },
+                    {
+                      "key": "phone",
+                      "value": "18908787745",
+                      "type": "text"
+                    },
+                    {
+                      "key": "status",
+                      "value": "",
+                      "type": "text",
+                      "disabled": true
+                    },
+                    {
+                      "key": "id",
+                      "value": "20",
+                      "type": "text",
+                      "disabled": true
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{domain}}{{apiAppPath}}/contact/private/save.json",
+                  "host": [
+                    "{{domain}}{{apiAppPath}}"
+                  ],
+                  "path": [
+                    "contact",
+                    "private",
+                    "save.json"
+                  ]
+                },
+                "description": null
+              },
+              "response": []
+            },
+            {
+              "name": "创建或者更新公有客户",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "*/*"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  }
+                ],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "key": "name",
+                      "value": "我的公有3",
+                      "type": "text"
+                    },
+                    {
+                      "key": "phone",
+                      "value": "18908787779",
+                      "type": "text"
+                    },
+                    {
+                      "key": "status",
+                      "value": "",
+                      "type": "text",
+                      "disabled": true
+                    },
+                    {
+                      "key": "id",
+                      "value": "20",
+                      "type": "text",
+                      "disabled": true
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{domain}}{{apiAppPath}}/contact/public/save.json",
+                  "host": [
+                    "{{domain}}{{apiAppPath}}"
+                  ],
+                  "path": [
+                    "contact",
+                    "public",
+                    "save.json"
+                  ]
+                },
+                "description": null
+              },
+              "response": []
+            },
+            {
+              "name": "分配公有客户为私有客户",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "key": "userId",
+                      "value": "1",
+                      "type": "text",
+                      "disabled": true
+                    },
+                    {
+                      "key": "contactIds",
+                      "value": "51234,51233,51235",
+                      "type": "text"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{domain}}{{apiAppPath}}/contact/allot.json",
+                  "host": [
+                    "{{domain}}{{apiAppPath}}"
+                  ],
+                  "path": [
+                    "contact",
+                    "allot.json"
+                  ]
+                },
+                "description": "### 参数  \nuserId 分配至坐席的id，不存则为当前用户id  \ncontactIds 需要分配的客户ids，逗号分割"
+              },
+              "response": []
+            },
+            {
+              "name": "归还私有客户至公有客户",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "*/*"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  }
+                ],
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "key": "userId",
+                      "value": "1",
+                      "type": "text",
+                      "disabled": true
+                    },
+                    {
+                      "key": "contactIds",
+                      "value": "51234,51233,51235",
+                      "type": "text"
+                    }
+                  ]
+                },
+                "url": {
+                  "raw": "{{domain}}{{apiAppPath}}/contact/release.json",
+                  "host": [
+                    "{{domain}}{{apiAppPath}}"
+                  ],
+                  "path": [
+                    "contact",
+                    "release.json"
+                  ]
+                },
+                "description": "### 参数  \ncontactIds 需要归还的客户ids，逗号分割"
+              },
+              "response": []
+            }
+          ],
+          "_postman_isSubFolder": true
+        },
+        {
+          "name": "公共api",
+          "description": "",
+          "item": [
+            {
+              "name": "查询手机号区域信息",
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "*/*"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {},
+                "url": {
+                  "raw": "{{domain}}{{apiPath}}/comm/mobile/getByPhone.json?phone=18908186392",
+                  "host": [
+                    "{{domain}}{{apiPath}}"
+                  ],
+                  "path": [
+                    "comm",
+                    "mobile",
+                    "getByPhone.json"
+                  ],
+                  "query": [
+                    {
+                      "key": "phone",
+                      "value": "18908186392",
+                      "equals": true
+                    }
+                  ]
+                },
+                "description": null
+              },
+              "response": []
+            },
+            {
+              "name": "获取图片验证码",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {},
+                "url": {
+                  "raw": "{{domain}}/servlet/validateCodeServlet",
+                  "host": [
+                    "{{domain}}"
+                  ],
+                  "path": [
+                    "servlet",
+                    "validateCodeServlet"
+                  ]
+                },
+                "description": null
+              },
+              "response": []
+            }
+          ],
+          "_postman_isSubFolder": true
+        },
+        {
+          "name": "用户",
+          "description": "",
+          "item": [
+            {
+              "name": "查询当前用户信息",
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "*/*"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {},
+                "url": {
+                  "raw": "{{domain}}{{apiAppPath}}/user/findById.json",
+                  "host": [
+                    "{{domain}}{{apiAppPath}}"
+                  ],
+                  "path": [
+                    "user",
+                    "findById.json"
+                  ]
+                },
+                "description": "```\n{\n    \"id\": \"1\",\n    \"remarks\": \"\",\n    \"createDate\": \"2017-09-29 17:07:15\",\n    \"updateDate\": \"2017-09-29 17:07:15\",\n    \"company\": {\n        \"id\": \"1\",\n        \"smsCount\": 100000,\n        \"groupCallCount\": 100000000,\n        \"outCallMinutes\": 100000000,\n        \"type\": \"0\",\n        \"balance\": 0,\n        \"overdraft\": 0\n    },\n    \"office\": {\n        \"id\": \"2\",\n        \"sort\": 30,\n        \"type\": \"1\",\n        \"parentId\": \"0\"\n    },\n    \"password\": \"9112bc0707b99bb8a476b0528b45707959dd599eb2d9da3da3cfdc3f\",\n    \"no\": \"001\",\n    \"name\": \"管理员\",\n    \"type\": -1,//用户 类型（-1管理员，0注册用户，1坐席用户，2混合云公司用户管理员，3纯云公司用户管理员）\n    \"phone\": \"15982324005\",\n    \"binded\": \"1\",//是否绑定手机号\n    \"roleList\": [\n        {\n            \"id\": \"2\",\n            \"name\": \"公司管理员\",\n            \"enname\": \"hr\",\n            \"roleType\": \"assignment\",\n            \"dataScope\": \"2\",\n            \"useable\": \"1\",\n            \"menuList\": [],\n            \"officeList\": [],\n            \"permissions\": [],\n            \"menuIdList\": [],\n            \"menuIds\": \"\",\n            \"officeIdList\": [],\n            \"officeIds\": \"\"\n        },\n        {\n            \"id\": \"1\",\n            \"name\": \"系统管理员\",\n            \"enname\": \"dept\",\n            \"roleType\": \"assignment\",\n            \"dataScope\": \"1\",\n            \"useable\": \"1\",\n            \"menuList\": [],\n            \"officeList\": [],\n            \"permissions\": [],\n            \"menuIdList\": [],\n            \"menuIds\": \"\",\n            \"officeIdList\": [],\n            \"officeIds\": \"\"\n        }\n    ],\n    \"acct\": \"15982324005\",\n    \"enable\": \"1\",\n    \"admin\": true,//是否是管理员\n    \"loginName\": \"15982324005\"\n}\n```"
+              },
+              "response": []
+            },
+            {
+              "name": "登录用户",
+              "event": [
+                {
+                  "listen": "prerequest",
+                  "script": {
+                    "id": "a6e6e347-fa97-4b4e-a4ee-dc64284bc821",
+                    "type": "text/javascript",
+                    "exec": [
+                      ""
+                    ]
+                  }
+                },
+                {
+                  "listen": "test",
+                  "script": {
+                    "id": "7a020b2c-3988-40d3-94f9-764d00a11b35",
+                    "type": "text/javascript",
+                    "exec": [
+                      "",
+                      "",
+                      "pm.test(\"Token 存在\", function () {",
+                      "     pm.environment.unset(\"Token\");",
+                      "     let body = JSON.parse(responseBody)",
+                      "     if(body.data.token){",
+                      "        console.log(\"更新token\",body.data.token)",
+                      "        pm.environment.set(\"Token\", body.data.token);//更新token至postman环境变量",
+                      "     }else{",
+                      "         console.log(\"无法获取Token\")",
+                      "        pm.environment.set(\"Token\", \"\");//更新token至postman环境变量",
+                      "     }",
+                      "     ",
+                      "    let Token = pm.environment.get(\"Token\");",
+                      "    if(Token && Token.length>0){",
+                      "        ",
+                      "    }else{",
+                      "          pm.response.to.have.status(\"Token 不存在\");",
+                      "    }",
+                      "});",
+                      "",
+                      "",
+                      "",
+                      "",
+                      "",
+                      "",
+                      ""
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "auth": {
+                  "type": "noauth"
+                },
+                "method": "POST",
+                "header": [],
+                "body": {},
+                "url": {
+                  "raw": "{{domain}}{{apiAppPath}}/login.json?username={{username}}&password={{password}}",
+                  "host": [
+                    "{{domain}}{{apiAppPath}}"
+                  ],
+                  "path": [
+                    "login.json"
+                  ],
+                  "query": [
+                    {
+                      "key": "username",
+                      "value": "{{username}}",
+                      "equals": true
+                    },
+                    {
+                      "key": "password",
+                      "value": "{{password}}",
+                      "equals": true
+                    },
+                    {
+                      "key": "rememberMe",
+                      "value": "true",
+                      "equals": true,
+                      "disabled": true
+                    },
+                    {
+                      "key": "mobileLogin",
+                      "value": "true",
+                      "equals": true,
+                      "disabled": true
+                    }
+                  ]
+                },
+                "description": "### 登录\n1. 调用 yc-app接口/用户/登录  返回token\n\n2. 调用需要登录的接口在Http头中带上Authorization:[Bearer ]{{token}} 键值对 [Bearer ]是可选值，可以加上也可以不加上。eg: Authorization:c6fb93e9bc8744b98837e5d766f47ac1\n3. 客户端和网页可以多次登录\n\n\n```\n{\n    \"code\": 1,\n    \"msg\": \"登录成功\",\n    \"data\": {\n        \"id\": \"44\",\n        \"loginName\": \"18708180000\",\n        \"name\": \"阿里公司\",\n        \"mobileLogin\": false,\n        \"password\": \"95d551750464c378491ece6e3713df7c45ee2d758fdca4fe9405276f\",\n        \"sip\": {\n            \"server\": \"wss://sip.voiper.cn:7443\",\n            \"password\": \"95d551750464c378491ece6e3713df7c45ee2d758fdca4fe9405276f\",\n            \"uri\": \"18708180000@yc47.voiper.cn\"\n        },\n        \"token\": \"4a67c0c7c6a04ae2b017223a46b4bff8\",//客户端token\n        \"sessionid\": \"4a67c0c7c6a04ae2b017223a46b4bff8\"\n    }\n}\n```"
+              },
+              "response": []
+            },
+            {
+              "name": "登出用户",
+              "event": [
+                {
+                  "listen": "prerequest",
+                  "script": {
+                    "id": "01f0176e-281b-4b34-bc40-bd5cd4d4cb1d",
+                    "type": "text/javascript",
+                    "exec": [
+                      "",
+                      "",
+                      ""
+                    ]
+                  }
+                },
+                {
+                  "listen": "test",
+                  "script": {
+                    "id": "8fef18a2-232f-4f4e-b395-79ab97744a69",
+                    "type": "text/javascript",
+                    "exec": [
+                      ""
+                    ]
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {},
+                "url": {
+                  "raw": "{{domain}}{{apiAppPath}}/logout.json",
+                  "host": [
+                    "{{domain}}{{apiAppPath}}"
+                  ],
+                  "path": [
+                    "logout.json"
+                  ]
+                },
+                "description": null
+              },
+              "response": []
+            }
+          ],
+          "_postman_isSubFolder": true
+        },
+        {
+          "name": "报表",
+          "description": "",
+          "item": [
+            {
+              "name": "查询当前用户今日之前报表信息",
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "*/*"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "过滤信息"
+                },
+                "url": {
+                  "raw": "{{domain}}{{apiAppPath}}/cdrReport/agentReport.json?startDate=2017-11-12&endDate=2017-12-12",
+                  "host": [
+                    "{{domain}}{{apiAppPath}}"
+                  ],
+                  "path": [
+                    "cdrReport",
+                    "agentReport.json"
+                  ],
+                  "query": [
+                    {
+                      "key": "startDate",
+                      "value": "2017-11-12",
+                      "equals": true
+                    },
+                    {
+                      "key": "endDate",
+                      "value": "2017-12-12",
+                      "equals": true
+                    }
+                  ]
+                },
+                "description": "### 说明  \n如果是管理员账户将会查询所有坐席的报表信息  \n如果是坐席账户将只会查询对应的报表信息  \n查询需要传入时间范围，如果不填将会默认查询所有的数据，  \n返回的数据不分页，数据为每天的通话报表    \n如果只传入一个开始或结束日期也将查询所有数据\n查询的报表数据为今日之前的数据，今日数据不能查询"
+              },
+              "response": []
+            },
+            {
+              "name": "查询当前用户今日之前报表信息汇总",
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "*/*"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "过滤信息"
+                },
+                "url": {
+                  "raw": "{{domain}}{{apiAppPath}}/cdrReport/agentReportCollect.json",
+                  "host": [
+                    "{{domain}}{{apiAppPath}}"
+                  ],
+                  "path": [
+                    "cdrReport",
+                    "agentReportCollect.json"
+                  ]
+                },
+                "description": "### 说明  \n如果是管理员账户将会查询所有坐席的报表信息  \n如果是坐席账户将只会查询对应的报表信息  \n查询需要传入时间范围，如果不填将会默认查询所有的数据，  \n如果只传入一个开始或结束日期也将查询所有数据\n查询的报表数据为今日之前的数据，今日数据不能查询\n\n```\n \"company\": {\n    \"id\": \"1\",\n    \"smsCount\": 100000,\n    \"groupCallCount\": 100000000,\n    \"outCallMinutes\": 100000000,\n    \"type\": \"0\",\n    \"balance\": 0,\n    \"overdraft\": 0\n},\n\"call\": 0,//总呼叫次数\n\"answer\": 0,//总接通次数\n\"billsec\": 0//总通话分钟\n```"
+              },
+              "response": []
+            },
+            {
+              "name": "通话记录",
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "*/*"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "过滤信息"
+                },
+                "url": {
+                  "raw": "{{domain}}{{apiAppPath}}/cdr/list.json?pageNo=1&pageSize=10&calleeNumber=18908185555",
+                  "host": [
+                    "{{domain}}{{apiAppPath}}"
+                  ],
+                  "path": [
+                    "cdr",
+                    "list.json"
+                  ],
+                  "query": [
+                    {
+                      "key": "pageNo",
+                      "value": "1",
+                      "equals": true
+                    },
+                    {
+                      "key": "pageSize",
+                      "value": "10",
+                      "equals": true
+                    },
+                    {
+                      "key": "calleeNumber",
+                      "value": "18908185555",
+                      "equals": true,
+                      "description": "被叫号码"
+                    }
+                  ]
+                },
+                "description": "### 说明  \n如果是管理员账户将会查询所有坐席的报表信息  \n如果是坐席账户将只会查询对应的报表信息  \n查询需要传入时间范围，如果不填将会默认查询所有的数据，  \n返回的数据不分页，数据为每天的通话报表    \n如果只传入一个开始或结束日期也将查询所有数据\n查询的报表数据为今日之前的数据，今日数据不能查询"
+              },
+              "response": []
+            }
+          ],
+          "_postman_isSubFolder": true
+        },
+        {
+          "name": "移动端网页",
+          "description": "",
+          "item": [
+            {
+              "name": "客户详情、通话、跟进、预约页面",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "过滤信息"
+                },
+                "url": {
+                  "raw": "{{domain}}/appweb/index.html#/app/clientele/51614?Authorization=ad9b217ed0b24259b1a4ce869962474e",
+                  "host": [
+                    "{{domain}}"
+                  ],
+                  "path": [
+                    "appweb",
+                    "index.html"
+                  ],
+                  "hash": "/app/clientele/51614?Authorization=ad9b217ed0b24259b1a4ce869962474e"
+                },
+                "description": "### url说明  \n>{{domain}}/appweb/index.html#/app/clientele/51614?Authorization=ad9b217ed0b24259b1a4ce869962474e   \n\n| url部分        |备注          \n| ------------- |:-------------:\n| {{domain}}      | 域名  |\n| /appweb/index.html#      | 访问前缀 访问前缀 #必须带上     |\n|/app/clientele | 页面虚拟地址#必须带上       |  \n|/51614 | 客户id      |  \n|?Authorization= |url的get参数Authorization只能带在url上,带在http头上将无法识别      |"
+              },
+              "response": []
+            },
+            {
+              "name": "编辑、创建客户详情",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "过滤信息"
+                },
+                "url": {
+                  "raw": "{{domain}}{{appWebPrifix}}/app/clienteleDetailEdit/51614?Authorization=97a3b0acb44449d4bb6e1bf8098cf450",
+                  "host": [
+                    "{{domain}}{{appWebPrifix}}"
+                  ],
+                  "path": [
+                    "app",
+                    "clienteleDetailEdit",
+                    "51614"
+                  ],
+                  "query": [
+                    {
+                      "key": "Authorization",
+                      "value": "97a3b0acb44449d4bb6e1bf8098cf450",
+                      "equals": true
+                    }
+                  ]
+                },
+                "description": "### url说明  \n>{{domain}}/appweb/index.html#/app/clientele/51614?Authorization=ad9b217ed0b24259b1a4ce869962474e   \n\n| url部分        |备注          \n| ------------- |:-------------:\n| {{domain}}      | 域名  |\n| /appweb/index.html#      | 访问前缀  #必须带上        |\n|/app/clienteleDetailEdit | 页面虚拟地址   |  \n|/51614 | 客户id，没有客户id将会创建      |  \n|?Authorization= |url的get参数Authorization只能带在url上,带在http头上将无法识别      |"
+              },
+              "response": []
+            },
+            {
+              "name": "预约记录",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "过滤信息"
+                },
+                "url": {
+                  "raw": "{{domain}}{{appWebPrifix}}/app/clienteleSubscribe/1234?Authorization=97a3b0acb44449d4bb6e1bf8098cf450",
+                  "host": [
+                    "{{domain}}{{appWebPrifix}}"
+                  ],
+                  "path": [
+                    "app",
+                    "clienteleSubscribe",
+                    "1234"
+                  ],
+                  "query": [
+                    {
+                      "key": "Authorization",
+                      "value": "97a3b0acb44449d4bb6e1bf8098cf450",
+                      "equals": true
+                    }
+                  ]
+                },
+                "description": "### url说明  \n>{{domain}}/appweb/index.html#/app/clientele/51614?Authorization=ad9b217ed0b24259b1a4ce869962474e   \n\n| url部分        |备注          \n| ------------- |:-------------:\n| {{domain}}      | 域名  |\n| /appweb/index.html#      | 访问前缀  #必须带上        |\n|/app/clienteleSubscribe | 页面虚拟地址   |  \n|/51614 | 客户id，没有客户id将会创建      |  \n|?Authorization= |url的get参数Authorization只能带在url上,带在http头上将无法识别      |"
+              },
+              "response": []
+            },
+            {
+              "name": "跟进记录",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "过滤信息"
+                },
+                "url": {
+                  "raw": "{{domain}}{{appWebPrifix}}/app/clienteleFollow/1234?Authorization=97a3b0acb44449d4bb6e1bf8098cf450",
+                  "host": [
+                    "{{domain}}{{appWebPrifix}}"
+                  ],
+                  "path": [
+                    "app",
+                    "clienteleFollow",
+                    "1234"
+                  ],
+                  "query": [
+                    {
+                      "key": "Authorization",
+                      "value": "97a3b0acb44449d4bb6e1bf8098cf450",
+                      "equals": true
+                    }
+                  ]
+                },
+                "description": "### url说明  \n>{{domain}}/appweb/index.html#/app/clientele/51614?Authorization=ad9b217ed0b24259b1a4ce869962474e   \n\n| url部分        |备注          \n| ------------- |:-------------:\n| {{domain}}      | 域名  |\n| /appweb/index.html#      | 访问前缀  #必须带上        |\n|/app/clienteleFollow | 页面虚拟地址   |  \n|/51614 | 客户id，没有客户id将会创建      |  \n|?Authorization= |url的get参数Authorization只能带在url上,带在http头上将无法识别      |"
+              },
+              "response": []
+            }
+          ],
+          "_postman_isSubFolder": true
+        }
+      ],
+      "auth": {
+        "type": "oauth2",
+        "oauth2": [
+          {
+            "key": "accessToken",
+            "value": "{{Token}}",
+            "type": "string"
+          },
+          {
+            "key": "tokenType",
+            "type": "any"
+          },
+          {
+            "key": "addTokenTo",
+            "value": "header",
+            "type": "string"
+          }
+        ]
+      },
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "id": "defcbb14-ea7a-47cf-83e1-2ec0f2e33c23",
+            "type": "text/javascript",
+            "exec": [
+              ""
+            ]
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "id": "494d1379-f396-4e7d-b4f7-e60cffb62f15",
+            "type": "text/javascript",
+            "exec": [
+              ""
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "accessToken",
+        "value": "{{Token}}",
+        "type": "string"
+      },
+      {
+        "key": "tokenType",
+        "type": "any"
+      },
+      {
+        "key": "addTokenTo",
+        "value": "header",
+        "type": "string"
+      }
+    ]
+  },
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "id": "16214985-3d66-4413-9c3f-bfbc27dbcfa8",
+        "type": "text/javascript",
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "id": "f5094b37-5792-4897-bb84-38e5ac07a5d9",
+        "type": "text/javascript",
+        "exec": [
+          "",
+          "pm.test(\"Status code is 200\", function () {",
+          "    pm.response.to.have.status(200);",
+          "",
+          "});",
+          "",
+          "pm.test(\"Token 存在\", function () {",
+          "    let Token = pm.environment.get(\"Token\");",
+          "    if(Token && Token.length>0){",
+          "        ",
+          "    }else{",
+          "          pm.response.to.have.status(\"Token 不存在\");",
+          "    }",
+          "  ",
+          "});"
+        ]
+      }
+    }
+  ]
+}
