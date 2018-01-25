@@ -48,14 +48,15 @@ public class ApibuilderApplicationTests {
 		model.put("message", "这是测试的内容。。。");
 		model.put("toUserName", "张三");
 		model.put("fromUserName", "老许");
-		String apijson = readFile("src/main/resources/templates/sourceapi.json");
+		String apijson = readFile("src/main/resources/templates/source/api.json");
 		JSONObject api = JSONObject.parseObject(apijson);
 
-		Template t = configuration.getTemplate("test.html"); // freeMarker template
-//		String content = FreeMarkerTemplateUtils.processTemplateIntoString(t, model);
-//		System.out.println(content);
-		FileWriter file = new FileWriter(new File("builder/aa.html"));
-		t.process(model,file);
+		Template t = configuration.getTemplate("api/api.ftl"); // freeMarker template
+		File f = new File("builder");
+		f.mkdirs();
+
+		FileWriter file = new FileWriter(new File("builder/aa.js"));
+		t.process(api,file);
 		file.flush();
 		file.close();
 
